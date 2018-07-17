@@ -179,6 +179,12 @@ const SparkMD5 = require('spark-md5');
               csrfToken           = csrfInput ? csrfInput.value : Cookies.get(csrfCookieNameInput.value),
               headers             = {'X-CSRFToken': csrfToken };
 
+        const validFilename = /^[a-zA-Z0-9._-]+\.[^.]+$/i.test(file.name)
+
+        if (!validFilename) {
+            error(element, 'Invalid filename. Only fully portable filenames are allowed a-z A-Z 0-9 . _ -')
+        }
+
         form.append('dest', dest)
         form.append('name', file.name)
         form.append('type', file.type)
